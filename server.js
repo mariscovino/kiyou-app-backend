@@ -24,7 +24,9 @@ app.post("/users/signIn", async (req, res) => {
     const {email, password} = req.body;
     
     try {
-        const user = await signIn(email, password);
+        const user_agent = req.headers['user-agent'];
+        console.log(user_agent);
+        const user = await signIn(email, password, user_agent);
         res.send(user);
     } catch (error) {
         console.log(error);

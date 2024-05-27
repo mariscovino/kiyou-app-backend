@@ -31,8 +31,7 @@ export default class User {
     async signIn(user_agent) {
         if (await this.exists()) {
             if (await this.passwordsMatch(this.password)) {
-                const id = await this.getUserId();
-                this.getDeviceInfo(id.user_id, user_agent);
+                this.getDeviceInfo(this.email, user_agent);
             } else {
                 throw new Error("Wrong email or password.");
             }
@@ -132,19 +131,19 @@ export default class User {
     }
 
     // Detects and logs device information in user_sessions
-    async getDeviceInfo(user_id, user_agent) {
+    async getDeviceInfo(user_email, user_agent) {
         const parser = new UAParser(user_agent);
         const system_name = parser.getOS().name;
         const device_model = parser.getDevice().vendor + " " + parser.getDevice().model;
 
-        const ret = pool.query(`
+        const ret = pool.execute(`
             INSERT INTO user_sessions (
                 session_id, 
-                user_id, 
+                user_email, 
                 date_logged, 
                 system_name, 
                 device_model) 
             VALUES (NULL, ?, CURRENT_TIMESTAMP, ?, ?)
-        `, [user_id, system_name, device_model]);
+        `, [user_email, system_name, device_model]);
     }
 }

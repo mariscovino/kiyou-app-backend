@@ -1,12 +1,14 @@
 import express from 'express'
-import userRouter from './src/routes/user.js'
-import concertRouter from './src/routes/concert.js'
+import userRouter from './routes/user.js'
+import concertRouter from './routes/concert.js'
+import listRouter from "./routes/list.js"
 
 const app = express();
 
 app.use(express.json());
 app.use(userRouter);
 app.use(concertRouter);
+app.use(listRouter);
 
 app.listen(8080, () => {
     console.log('Server is running on port 8080')

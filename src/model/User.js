@@ -68,15 +68,32 @@ export default class User {
       
     // Sign Out
     async signOut() {
-        try {
-            await this.sendEmailQuery(`
+        await this.sendEmailQuery(`
                 DELETE
                 FROM user_sessions
                 WHERE user_email = ?
             `);
-        } catch (err) {
-            throw err;
-        }
+    }
+
+    // Join concert
+    async joinConcert(pin) {
+        const concert_id = await this.getConcertId(pin);
+
+        await pool.execute(`
+            INSERT
+            INTO audience (concert_id, user_email)
+            VALUES (?, ?)
+            `, [concert_id, this.email]);
+    }
+
+    // Create concert in the database and sets class fields
+    async createConcert(concert_name) {
+        const pin = this.getRandomPin(10000, 99999);
+
+        await pool.execute(`
+                INSERT INTO concerts (concert_id, concert_name, artist_email, pin)
+                VALUES (NULL, ?, ?, ?)
+            `, [concert_name, this.email, pin]);
     }
 
     // Send query passing email parameter
@@ -84,6 +101,16 @@ export default class User {
         const ret = await sendQuery(options, this.email)
 
         return ret[0];
+    }
+
+    async getConcertId(pin) {
+        const ret = await sendQuery(`
+            SELECT concert_id
+            FROM concerts
+            WHERE pin = ?
+        `, [pin])
+
+        return ret[0].concert_id;
     }
 
     // Get user id with email
@@ -145,5 +172,12 @@ export default class User {
                 device_model) 
             VALUES (NULL, ?, CURRENT_TIMESTAMP, ?, ?)
         `, [user_email, system_name, device_model]);
+    }
+
+    // Get random pin
+    getRandomPin(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }

@@ -18,9 +18,13 @@ router.post("/users/signUp", async (req, res) => {
 
     const user = new User(email, password);
     
-    const newUser = await user.signUp(name, last_name);
-
-    res.status(201).send(newUser);
+    try {
+        const newUser = await user.signUp(name, last_name);
+    
+        res.status(201).send(newUser);
+    } catch (error) {
+        console.log(error)
+    }
 });
 
 router.post("/users/signIn", async (req, res) => {
@@ -70,6 +74,33 @@ router.post("/users/signOut", async (req, res) => {
     
     try {
         await user.signOut();
+        res.status(200);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.post("/users/joinConcert", async (req, res) => {
+    const {email, pin} = req.body;
+    const user = new User(email, "");
+    
+    try {
+        await user.joinConcert(pin);
+        res.status(200);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.post("/users/createConcert", async (req, res) => {
+    const { concert_name, email } = req.body;
+
+    const user = new User(email, "");
+    
+    try {
+        const newConcert = await user.createConcert(concert_name);
+    
+        res.status(201).send(newConcert);
     } catch (error) {
         console.log(error);
     }

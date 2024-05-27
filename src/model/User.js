@@ -124,6 +124,17 @@ export default class User {
         return ret;
     }
 
+    // Get user with email
+    async getUser() {
+        const ret = await this.sendEmailQuery(`
+            SELECT *
+            FROM users
+            WHERE email = ?
+            `);
+    
+        return ret;
+    }
+
     // Returns true if a user exists
     async exists() {
         const ret = await this.sendEmailQuery(`

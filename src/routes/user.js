@@ -13,6 +13,20 @@ router.get("/users", async (req, res) => {
     }
 });
 
+router.get("/users/getUser", async (req, res) => {
+    const { email } = req.body;
+
+    const user = new User(email, password);
+
+    try {
+        const users = await user.getUser();
+        
+        res.status(200).send(user);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 router.post("/users/signUp", async (req, res) => {
     const { name, last_name, email, password } = req.body;
 

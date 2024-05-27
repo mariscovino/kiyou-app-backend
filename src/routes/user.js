@@ -16,11 +16,11 @@ router.get("/users", async (req, res) => {
 router.get("/users/getUser", async (req, res) => {
     const { email } = req.body;
 
-    const user = new User(email, password);
+    const user = new User(email, "");
 
     try {
         const users = await user.getUser();
-        
+
         res.status(200).send(user);
     } catch (error) {
         console.log(error);

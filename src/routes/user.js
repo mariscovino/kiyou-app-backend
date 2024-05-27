@@ -19,9 +19,9 @@ router.get("/users/getUser", async (req, res) => {
     const user = new User(email, "");
 
     try {
-        const users = await user.getUser();
+        const getUser = await user.getUser();
 
-        res.status(200).send(user);
+        res.status(200).send(getUser);
     } catch (error) {
         console.log(error);
     }

@@ -50,7 +50,7 @@ router.post("/users/signIn", async (req, res) => {
 
         await user.signIn(user_agent);
 
-        res.status(200);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -63,7 +63,7 @@ router.post("/users/getArtistConcerts", async (req, res) => {
     try {
         const concerts = await user.getArtistConcerts();
 
-        res.send(concerts);
+        res.send(concerts).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -76,7 +76,7 @@ router.post("/users/getAudienceConcerts", async (req, res) => {
     try {
         const concerts = await user.getAudienceConcerts();
 
-        res.send(concerts);
+        res.send(concerts).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -88,7 +88,7 @@ router.post("/users/signOut", async (req, res) => {
     
     try {
         await user.signOut();
-        res.status(200);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -100,7 +100,7 @@ router.post("/users/joinConcert", async (req, res) => {
     
     try {
         await user.joinConcert(pin);
-        res.status(200);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }

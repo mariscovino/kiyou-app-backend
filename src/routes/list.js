@@ -11,7 +11,7 @@ router.post("/concert/list/createSongQueue", async (req, res) => {
     try {
         await songQueue.createSongQueue();
     
-        res.status(201);
+        res.status(201).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -25,7 +25,7 @@ router.post("/concert/list/removeSongQueue", async (req, res) => {
     try {
         await songQueue.removeSongQueue();
     
-        res.status(200);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -39,7 +39,7 @@ router.post("/concert/list/createSongRequests", async (req, res) => {
     try {
         await songRequests.createSongRequests(email);
     
-        res.status(201);
+        res.status(201).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -53,7 +53,7 @@ router.post("/concert/list/acceptSong", async (req, res) => {
     try {
         await songRequests.acceptSong();
     
-        res.status(200);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -67,7 +67,7 @@ router.post("/concert/list/denySong", async (req, res) => {
     try {
         await songRequests.denySong();
     
-        res.status(209);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -81,7 +81,7 @@ router.post("/concert/list/removeSongRequests", async (req, res) => {
     try {
         await songRequests.removeSongRequests();
     
-        res.status(200);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -95,7 +95,7 @@ router.post("/concert/list/createSongsPlayed", async (req, res) => {
     try {
         await songsPlayed.createSongsPlayed();
     
-        res.status(201);
+        res.status(201).send("Success");
     } catch (error) {
         console.log(error);
     }
@@ -109,7 +109,7 @@ router.post("/concert/list/removeSongsPlayed", async (req, res) => {
     try {
         await songsPlayed.removeSongsPlayed();
     
-        res.status(200);
+        res.status(200).send("Success");
     } catch (error) {
         console.log(error);
     }

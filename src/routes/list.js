@@ -17,7 +17,7 @@ router.post("/concert/list/createSongQueue", async (req, res) => {
     }
 });
 
-router.post("/concert/list/removeSongQueue", async (req, res) => {
+router.delete("/concert/list/removeSongQueue", async (req, res) => {
     const { pin, song_name, song_artist } = req.body;
 
     const songQueue = new List(pin, song_name, song_artist);
@@ -45,7 +45,7 @@ router.post("/concert/list/createSongRequests", async (req, res) => {
     }
 });
 
-router.post("/concert/list/acceptSong", async (req, res) => {
+router.put("/concert/list/acceptSong", async (req, res) => {
     const { pin, song_name, song_artist } = req.body;
 
     const songRequests = new List(pin, song_name, song_artist);
@@ -59,7 +59,7 @@ router.post("/concert/list/acceptSong", async (req, res) => {
     }
 });
 
-router.post("/concert/list/denySong", async (req, res) => {
+router.put("/concert/list/denySong", async (req, res) => {
     const { pin, song_name, song_artist } = req.body;
 
     const songRequests = new List(pin, song_name, song_artist);
@@ -73,7 +73,7 @@ router.post("/concert/list/denySong", async (req, res) => {
     }
 });
 
-router.post("/concert/list/removeSongRequests", async (req, res) => {
+router.delete("/concert/list/removeSongRequests", async (req, res) => {
     const { pin, song_name, song_artist } = req.body;
 
     const songRequests = new List(pin, song_name, song_artist);
@@ -101,7 +101,7 @@ router.post("/concert/list/createSongsPlayed", async (req, res) => {
     }
 });
 
-router.post("/concert/list/removeSongsPlayed", async (req, res) => {
+router.delete("/concert/list/removeSongsPlayed", async (req, res) => {
     const { pin, song_name, song_artist } = req.body;
 
     const songsPlayed = new List(pin, song_name, song_artist);

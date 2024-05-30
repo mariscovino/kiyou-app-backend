@@ -13,7 +13,7 @@ router.get("/users", async (req, res) => {
     }
 });
 
-router.get("/users/getUser", async (req, res) => {
+router.post("/users/getUser", async (req, res) => {
     const { email } = req.body;
 
     const user = new User(email, "");

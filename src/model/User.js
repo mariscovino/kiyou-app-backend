@@ -65,6 +65,21 @@ export default class User {
 
         return ret;
     }
+
+    // Get concerts attended and created by user
+    async getAllConcerts() {
+        const ret = await this.sendEmailQuery(`
+            SELECT *
+            FROM concerts
+            WHERE concert_id = (
+                SELECT concert_id
+                FROM audience
+                WHERE user_email = ?
+            ) AND artist_email = ?
+            `);
+
+        return ret;
+    }
       
     // Sign Out
     async signOut() {

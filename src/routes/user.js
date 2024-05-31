@@ -100,10 +100,9 @@ router.post("/users/getAllConcerts", async (req, res) => {
     const user = new User(email, "");
     
     try {
-        const audience = await user.getAudienceConcerts();
-        const artist = await user.getArtistConcerts();
+        const concert = await user.getAllConcerts();
 
-        res.status(200).send(audience).send(artist);
+        res.status(200).send(concert);
     } catch (error) {
         console.log(error);
     }

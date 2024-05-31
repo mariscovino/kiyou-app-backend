@@ -68,7 +68,7 @@ export default class User {
 
     // Get concerts attended and created by user
     async getAllConcerts() {
-        const ret = await this.sendQuery(`
+        const ret = await sendQuery(`
             SELECT *
             FROM concerts
             WHERE concert_id = (

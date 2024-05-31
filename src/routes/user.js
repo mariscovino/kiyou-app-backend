@@ -56,6 +56,19 @@ router.post("/users/signIn", async (req, res) => {
     }
 });
 
+router.post("/users/getUserSessions", async (req, res) => {
+    const {email} = req.body;
+    const user = new User(email, "");
+    
+    try {
+        const user_sessions = await user.getUserSessions();
+
+        res.status(200).send(user_sessions);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 router.post("/users/getArtistConcerts", async (req, res) => {
     const {email} = req.body;
     const user = new User(email, "");
@@ -82,6 +95,20 @@ router.post("/users/getAudienceConcerts", async (req, res) => {
     }
 });
 
+router.post("/users/getAllConcerts", async (req, res) => {
+    const {email} = req.body;
+    const user = new User(email, "");
+    
+    try {
+        const audience = await user.getAudienceConcerts();
+        const artist = await user.getArtistConcerts();
+
+        res.send(audience + artist).send("Success");
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 router.post("/users/signOut", async (req, res) => {
     const {email} = req.body;
     const user = new User(email, "");
@@ -99,8 +126,8 @@ router.post("/users/joinConcert", async (req, res) => {
     const user = new User(email, "");
     
     try {
-        await user.joinConcert(pin);
-        res.status(200).send("Success");
+        const concert = await user.joinConcert(pin);
+        res.status(200).send(concert);
     } catch (error) {
         console.log(error);
     }

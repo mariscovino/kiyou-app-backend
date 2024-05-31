@@ -3,7 +3,7 @@ import Concert from '../model/Concert.js';
 
 const router = express.Router();
 
-router.get("/concerts/getSongQueue", async (req, res) => {
+router.post("/concerts/getSongQueue", async (req, res) => {
     const { pin } = req.body;
 
     const concert = new Concert(pin);
@@ -17,7 +17,7 @@ router.get("/concerts/getSongQueue", async (req, res) => {
     }
 });
 
-router.get("/concerts/getSongRequests", async (req, res) => {
+router.post("/concerts/getSongRequests", async (req, res) => {
     const { pin } = req.body;
 
     const concert = new Concert(pin);
@@ -31,7 +31,7 @@ router.get("/concerts/getSongRequests", async (req, res) => {
     }
 });
 
-router.get("/concerts/getSongsPlayed", async (req, res) => {
+router.post("/concerts/getSongsPlayed", async (req, res) => {
     const { pin } = req.body;
 
     const concert = new Concert(pin);

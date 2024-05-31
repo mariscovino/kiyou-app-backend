@@ -75,25 +75,40 @@ export default class User {
             `);
     }
 
+    // Get user session
+    async getUserSessions() {
+        const userSessions = await this.sendEmailQuery(`
+            SELECT *
+            FROM user_sessions
+            WHERE user_email = ?
+        `)
+
+        return userSessions
+    }
+
     // Join concert
     async joinConcert(pin) {
         const concert_id = await this.getConcertId(pin);
 
-        await pool.execute(`
+        const concert = await pool.execute(`
             INSERT
             INTO audience (concert_id, user_email)
             VALUES (?, ?)
             `, [concert_id, this.email]);
+        
+            return concert;
     }
 
     // Create concert in the database and sets class fields
     async createConcert(concert_name) {
         const pin = this.getRandomPin(10000, 99999);
 
-        await pool.execute(`
+        const concert = await pool.execute(`
                 INSERT INTO concerts (concert_id, concert_name, artist_email, pin)
                 VALUES (NULL, ?, ?, ?)
             `, [concert_name, this.email, pin]);
+        
+            return concert;
     }
 
     // Send query passing email parameter

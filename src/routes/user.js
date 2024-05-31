@@ -103,7 +103,7 @@ router.post("/users/getAllConcerts", async (req, res) => {
         const audience = await user.getAudienceConcerts();
         const artist = await user.getArtistConcerts();
 
-        res.send(audience + artist).send("Success");
+        res.status(200).send(audience).send(artist);
     } catch (error) {
         console.log(error);
     }

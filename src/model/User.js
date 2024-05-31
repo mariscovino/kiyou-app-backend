@@ -71,14 +71,14 @@ export default class User {
         const ret = await sendQuery(`
             SELECT *
             FROM concerts
-            WHERE concert_id = (
+            WHERE artist_email = ? OR concert_id = (
                 SELECT concert_id
                 FROM audience
                 WHERE user_email = ?
-            ) OR artist_email = ?
+            )
             `, [this.email, this.email]);
 
-        return ret[0];
+        return ret;
     }
       
     // Sign Out

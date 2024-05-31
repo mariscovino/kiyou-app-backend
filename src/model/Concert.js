@@ -45,7 +45,7 @@ export default class Concert {
         return ret[0];
     }
 
-    // Get concert with pin
+    // Get concert id with pin
     async getConcertId() {
         const ret = await this.sendPinQuery(`
             SELECT concert_id

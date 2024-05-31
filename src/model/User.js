@@ -105,25 +105,37 @@ export default class User {
     async joinConcert(pin) {
         const concert_id = await this.getConcertId(pin);
 
-        const concert = await pool.execute(`
+        await pool.execute(`
             INSERT
             INTO audience (concert_id, user_email)
             VALUES (?, ?)
             `, [concert_id, this.email]);
+
+        const concert = await sendQuery(`
+            SELECT *
+            FROM concerts
+            WHERE pin = ?
+        `, [pin])
         
-            return concert;
+        return concert;
     }
 
     // Create concert in the database and sets class fields
     async createConcert(concert_name) {
         const pin = this.getRandomPin(10000, 99999);
 
-        const concert = await pool.execute(`
+        await pool.execute(`
                 INSERT INTO concerts (concert_id, concert_name, artist_email, pin)
                 VALUES (NULL, ?, ?, ?)
             `, [concert_name, this.email, pin]);
+
+        const concert = await sendQuery(`
+            SELECT *
+            FROM concerts
+            WHERE concert_id = (SELECT LAST_INSERT_ID())
+        `)
         
-            return concert;
+        return concert;
     }
 
     // Send query passing email parameter
@@ -133,6 +145,7 @@ export default class User {
         return ret[0];
     }
 
+    // Get concert_id with pin
     async getConcertId(pin) {
         const ret = await sendQuery(`
             SELECT concert_id

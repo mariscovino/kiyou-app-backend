@@ -18,7 +18,7 @@ export default class Concert {
             ORDER BY date_created ASC
         `, [concert_id]);
 
-        return ret[0];
+        return ret;
     }
 
     async getSongRequests() {
@@ -30,7 +30,7 @@ export default class Concert {
             WHERE concert_id = ?
         `, [concert_id]);
 
-        return ret[0];
+        return ret;
     }
 
     async getSongsPlayed() {
@@ -42,7 +42,7 @@ export default class Concert {
             WHERE concert_id = ?
         `, [concert_id]);
 
-        return ret[0];
+        return ret;
     }
 
     // Get concert id with pin

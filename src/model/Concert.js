@@ -12,7 +12,7 @@ export default class Concert {
         const concert_id = await this.getConcertId();
 
         const [ret] = await pool.query(`
-            SELECT song_name, song_artist
+            SELECT *
             FROM song_queue
             WHERE concert_id = ?
             ORDER BY date_created ASC
@@ -25,7 +25,7 @@ export default class Concert {
         const concert_id = await this.getConcertId();
 
         const [ret] = await pool.query(`
-            SELECT song_name, song_artist
+            SELECT *
             FROM song_requests
             WHERE concert_id = ?
         `, [concert_id]);
@@ -37,7 +37,7 @@ export default class Concert {
         const concert_id = await this.getConcertId();
 
         const [ret] = await pool.query(`
-            SELECT song_name, song_artist
+            SELECT *
             FROM songs_played
             WHERE concert_id = ?
         `, [concert_id]);

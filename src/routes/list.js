@@ -41,7 +41,7 @@ router.post("/concert/list/createSongRequests", async (req, res) => {
     
         res.status(201).send("Success");
     } catch (error) {
-        console.log(error);
+        res.status(500).send(error.message);
     }
 });
 

@@ -37,7 +37,7 @@ router.post("/users/signUp", async (req, res) => {
     
         res.status(201).send(newUser);
     } catch (error) {
-        console.log(error)
+        res.status(500).send(error.message);
     }
 });
 
@@ -52,7 +52,7 @@ router.post("/users/signIn", async (req, res) => {
 
         res.status(200).send("Success");
     } catch (error) {
-        console.log(error);
+        res.status(500).send(error.message);
     }
 });
 
